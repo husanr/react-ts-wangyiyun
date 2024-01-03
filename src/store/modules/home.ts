@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const homeSlice = createSlice({
   name: 'home',
@@ -7,7 +7,7 @@ const homeSlice = createSlice({
   },
   reducers: {
     // 加法
-    incrementAction(state, { payload }) {
+    incrementAction(state, { payload }: PayloadAction<number>) {
       state.counter = state.counter + payload
     },
     // 减法
