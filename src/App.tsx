@@ -7,12 +7,14 @@ import AppFooter from './components/app-footer'
 
 function App() {
   return (
-    <Suspense fallback="">
-      {/* <Demo1 name="Lily" age={10} /> */}
+    <div className="App">
       <AppHeader />
-      <div>{useRoutes(routes)}</div>
+      <Suspense fallback="">
+        {/* <Demo1 name="Lily" age={10} /> */}
+        <div>{useRoutes(routes)}</div>
+      </Suspense>
       <AppFooter />
-    </Suspense>
+    </div>
   )
 }
 
