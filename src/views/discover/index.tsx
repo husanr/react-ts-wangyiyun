@@ -1,5 +1,4 @@
-import apiRequest from '@/service'
-import React, { Suspense, useEffect } from 'react'
+import React, { Suspense } from 'react'
 import type { FC, ReactNode } from 'react'
 import { Outlet } from 'react-router-dom'
 import NavBar from './c-cpns/nav-bar'
@@ -9,11 +8,6 @@ interface IProps {
 }
 
 const Discover: FC<IProps> = () => {
-  useEffect(() => {
-    apiRequest.get({ url: '/banner' }).then((res) => {
-      console.log(res)
-    })
-  }, [])
   return (
     <div>
       <NavBar />
