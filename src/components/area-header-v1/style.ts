@@ -37,7 +37,7 @@ export const AreaHeaderV1Wrapper = styled.div`
         }
 
         .divider {
-          margin: 0 15px;
+          margin: 0 13px;
           color: #ccc;
         }
 
