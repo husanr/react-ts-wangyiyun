@@ -1,7 +1,7 @@
 import { useAppDispatch } from '@/store'
 import React, { useEffect } from 'react'
 import type { FC, ReactNode } from 'react'
-import { fetchBannerThunk } from './store'
+import { fetchBannerThunk, fetchHotRecommendThunk } from './store'
 import TopBanner from './c-cpns/top-banner'
 import { RecommendWrapper } from './style'
 import HotRecommend from './c-cpns/hot-recommend'
@@ -14,6 +14,7 @@ const Recommend: FC<IProps> = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(fetchBannerThunk())
+    dispatch(fetchHotRecommendThunk())
   }, [])
   return (
     <RecommendWrapper>
