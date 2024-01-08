@@ -1,5 +1,5 @@
-import React from 'react'
-import type { FC, ReactNode } from 'react'
+import React, { useRef } from 'react'
+import type { FC, ReactNode, ElementRef } from 'react'
 import {
   BannerControlWrapper,
   BannerLeftWrapper,
@@ -15,17 +15,29 @@ interface IProps {
 }
 
 const TopBanner: FC<IProps> = () => {
+  // 获取ref
+  const bannerRef = useRef<ElementRef<typeof Carousel>>(null)
+
+  // 获取banner数据
   const { banners } = useAppSelector(
     (state) => ({
       banners: state.recommend.banners
     }),
     shallowEqual
   )
+
+  // 切换轮播
+  const handlePrevClick = () => {
+    bannerRef.current?.prev()
+  }
+  const handleNextClick = () => {
+    bannerRef.current?.next()
+  }
   return (
     <BannerWrapper>
       <div className="banner wrap-v2">
         <BannerLeftWrapper>
-          <Carousel autoplay effect="fade">
+          <Carousel autoplay effect="fade" ref={bannerRef}>
             {banners.map((item) => {
               return (
                 <div key={item.encodeId} className="banner-item">
@@ -41,8 +53,8 @@ const TopBanner: FC<IProps> = () => {
         </BannerLeftWrapper>
         <BannerRightWrapper></BannerRightWrapper>
         <BannerControlWrapper>
-          <button className="btn left"></button>
-          <button className="btn right"></button>
+          <button className="btn left" onClick={handlePrevClick}></button>
+          <button className="btn right" onClick={handleNextClick}></button>
         </BannerControlWrapper>
       </div>
     </BannerWrapper>
