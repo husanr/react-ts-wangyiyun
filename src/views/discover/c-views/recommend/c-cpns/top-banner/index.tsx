@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import type { FC, ReactNode, ElementRef } from 'react'
 import {
   BannerControlWrapper,
@@ -15,6 +15,8 @@ interface IProps {
 }
 
 const TopBanner: FC<IProps> = () => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
   // 获取ref
   const bannerRef = useRef<ElementRef<typeof Carousel>>(null)
 
@@ -33,11 +35,28 @@ const TopBanner: FC<IProps> = () => {
   const handleNextClick = () => {
     bannerRef.current?.next()
   }
+  const handleAfterChange = (current: number) => {
+    setCurrentIndex(current)
+  }
+
+  let bgImgUrl = banners[currentIndex]?.imageUrl
+  if (bgImgUrl) {
+    bgImgUrl += '?imageView&blur=40x20'
+  }
   return (
-    <BannerWrapper>
+    <BannerWrapper
+      style={{
+        background: `url('${bgImgUrl}') center center / 6000px`
+      }}
+    >
       <div className="banner wrap-v2">
         <BannerLeftWrapper>
-          <Carousel autoplay effect="fade" ref={bannerRef}>
+          <Carousel
+            autoplay
+            effect="fade"
+            ref={bannerRef}
+            afterChange={handleAfterChange}
+          >
             {banners.map((item) => {
               return (
                 <div key={item.encodeId} className="banner-item">
