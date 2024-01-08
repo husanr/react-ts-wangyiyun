@@ -54,6 +54,7 @@ const TopBanner: FC<IProps> = () => {
           <Carousel
             autoplay
             effect="fade"
+            dots={false}
             ref={bannerRef}
             afterChange={handleAfterChange}
           >
@@ -69,6 +70,17 @@ const TopBanner: FC<IProps> = () => {
               )
             })}
           </Carousel>
+          <ul className="dots">
+            {banners.map((item, index) => {
+              return (
+                <li key={item.encodeId}>
+                  <span
+                    className={`item ${currentIndex === index ? 'active' : ''}`}
+                  ></span>
+                </li>
+              )
+            })}
+          </ul>
         </BannerLeftWrapper>
         <BannerRightWrapper></BannerRightWrapper>
         <BannerControlWrapper>
