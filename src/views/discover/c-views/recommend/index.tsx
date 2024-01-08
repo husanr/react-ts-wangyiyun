@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import type { FC, ReactNode } from 'react'
 import { fetchBannerThunk } from './store'
 import TopBanner from './c-cpns/top-banner'
+import { RecommendWrapper } from './style'
 
 interface IProps {
   children?: ReactNode
@@ -14,9 +15,13 @@ const Recommend: FC<IProps> = () => {
     dispatch(fetchBannerThunk())
   }, [])
   return (
-    <div>
+    <RecommendWrapper>
       <TopBanner />
-    </div>
+      <div className="content wrap-v2">
+        <div className="left">left</div>
+        <div className="right">right</div>
+      </div>
+    </RecommendWrapper>
   )
 }
 
