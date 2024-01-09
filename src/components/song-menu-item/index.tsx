@@ -1,6 +1,7 @@
 import React from 'react'
 import type { FC, ReactNode } from 'react'
 import { SongMenuItemWrapper } from './style'
+import { formatCount, getImgSize } from '@/utils/format'
 
 interface IProps {
   children?: ReactNode
@@ -12,12 +13,12 @@ const SongMenuItem: FC<IProps> = (props) => {
   return (
     <SongMenuItemWrapper>
       <div className="top">
-        <img src={itemData.picUrl} alt={itemData.name} />
+        <img src={getImgSize(itemData.picUrl, 140)} alt={itemData.name} />
         <div className="cover sprite_cover">
           <div className="info sprite_cover">
             <span>
               <i className="sprite_icon headset"></i>
-              <span className="count">{itemData.playCount}</span>
+              <span className="count">{formatCount(itemData.playCount)}</span>
             </span>
             <i className="sprite_icon play"></i>
           </div>
