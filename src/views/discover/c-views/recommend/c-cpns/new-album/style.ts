@@ -39,7 +39,7 @@ export const NewAlbumWrapper = styled.div`
       overflow: hidden;
       flex: 1;
 
-      .album-list {
+      .album_list {
         display: flex;
         justify-content: space-between;
         align-items: center;
