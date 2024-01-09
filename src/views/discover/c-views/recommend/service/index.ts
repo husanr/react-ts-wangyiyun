@@ -13,3 +13,9 @@ export function getHotRecommend(params: any) {
     params
   })
 }
+// 获取新碟上架
+export function getNewAlbum() {
+  return apiRequest.get({
+    url: '/album/newest'
+  })
+}
