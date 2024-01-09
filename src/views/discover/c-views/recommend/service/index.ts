@@ -19,3 +19,10 @@ export function getNewAlbum() {
     url: '/album/newest'
   })
 }
+// 获取榜单数据
+export function getRanking(params: any) {
+  return apiRequest.get({
+    url: '/playlist/detail',
+    params
+  })
+}

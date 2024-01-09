@@ -4,7 +4,8 @@ import type { FC, ReactNode } from 'react'
 import {
   fetchBannerThunk,
   fetchHotRecommendThunk,
-  fetchNewAlbumThunk
+  fetchNewAlbumThunk,
+  fetchRankingThunk
 } from './store'
 import TopBanner from './c-cpns/top-banner'
 import { RecommendWrapper } from './style'
@@ -22,6 +23,7 @@ const Recommend: FC<IProps> = () => {
     dispatch(fetchBannerThunk())
     dispatch(fetchHotRecommendThunk())
     dispatch(fetchNewAlbumThunk())
+    dispatch(fetchRankingThunk())
   }, [])
   return (
     <RecommendWrapper>
