@@ -3,7 +3,8 @@ import {
   getBanners,
   getHotRecommend,
   getNewAlbum,
-  getRanking
+  getRanking,
+  getSingers
 } from '../service'
 
 export const fetchBannerThunk = createAsyncThunk(
@@ -16,8 +17,8 @@ export const fetchBannerThunk = createAsyncThunk(
 )
 export const fetchHotRecommendThunk = createAsyncThunk(
   'hot-recommend',
-  async (_, { dispatch }) => {
-    const res = await getHotRecommend({ limit: 8 })
+  async (args: any, { dispatch }) => {
+    const res = await getHotRecommend({ limit: args.limit })
     // console.log(res)
     dispatch(getHotRecommendAction(res.result))
   }
@@ -45,19 +46,29 @@ export const fetchRankingThunk = createAsyncThunk(
     })
   }
 )
+export const fetchSingersThunk = createAsyncThunk(
+  'singers',
+  async (args: any, { dispatch }) => {
+    const res = await getSingers({ limit: args.limit })
+    console.log(res)
+    dispatch(getSettleSingersAction(res.artists))
+  }
+)
 
 interface IState {
   banners: any[]
   hotRecommend: any[]
   newAlbums: any[]
   rankings: any[]
+  settleSingers: any[]
 }
 
 const initialState: IState = {
   banners: [],
   hotRecommend: [],
   newAlbums: [],
-  rankings: []
+  rankings: [],
+  settleSingers: []
 }
 
 const recommendSlice = createSlice({
@@ -75,6 +86,9 @@ const recommendSlice = createSlice({
     },
     getRankingAction(state, { payload }) {
       state.rankings = payload
+    },
+    getSettleSingersAction(state, { payload }) {
+      state.settleSingers = payload
     }
   }
 })
@@ -83,6 +97,7 @@ export const {
   getBannersAction,
   getHotRecommendAction,
   getNewAlbumAction,
-  getRankingAction
+  getRankingAction,
+  getSettleSingersAction
 } = recommendSlice.actions
 export default recommendSlice.reducer

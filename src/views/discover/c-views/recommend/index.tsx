@@ -5,7 +5,8 @@ import {
   fetchBannerThunk,
   fetchHotRecommendThunk,
   fetchNewAlbumThunk,
-  fetchRankingThunk
+  fetchRankingThunk,
+  fetchSingersThunk
 } from './store'
 import TopBanner from './c-cpns/top-banner'
 import { RecommendWrapper } from './style'
@@ -23,9 +24,10 @@ const Recommend: FC<IProps> = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(fetchBannerThunk())
-    dispatch(fetchHotRecommendThunk())
+    dispatch(fetchHotRecommendThunk({ limit: 8 }))
     dispatch(fetchNewAlbumThunk())
     dispatch(fetchRankingThunk())
+    dispatch(fetchSingersThunk({ limit: 5 }))
   }, [])
   return (
     <RecommendWrapper>

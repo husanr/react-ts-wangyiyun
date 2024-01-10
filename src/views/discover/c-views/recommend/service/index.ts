@@ -26,3 +26,10 @@ export function getRanking(params: any) {
     params
   })
 }
+// 获取歌手数据
+export function getSingers(params: any) {
+  return apiRequest.get({
+    url: '/artist/list',
+    params
+  })
+}
