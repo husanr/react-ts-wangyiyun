@@ -3,6 +3,9 @@ import type { FC, ReactNode } from 'react'
 import { BarControl, BarFavor, BarInfo, PlayerBarWrapper } from './style'
 import { Link } from 'react-router-dom'
 import { Slider } from 'antd'
+import { useAppSelector } from '@/store'
+import { shallowEqual } from 'react-redux'
+import { getImgSize } from '@/utils/format'
 
 interface IProps {
   children?: ReactNode
@@ -10,6 +13,12 @@ interface IProps {
 
 const AppPlayerBar: FC<IProps> = () => {
   const [isPlaying, setIsPlaying] = useState(false)
+  const { currentSong } = useAppSelector(
+    (state) => ({
+      currentSong: state.player.currentSong
+    }),
+    shallowEqual
+  )
   return (
     <PlayerBarWrapper className="sprite_playbar">
       <div className="content wrap-v2">
@@ -22,14 +31,14 @@ const AppPlayerBar: FC<IProps> = () => {
           <Link to="/player">
             <img
               className="image"
-              src="http://p1.music.126.net/6NPQ6TfoXlu9c-JHokhtOg==/109951169067700687.jpg?param=34y34"
+              src={getImgSize(currentSong.al.picUrl, 34)}
               alt=""
             />
           </Link>
           <div className="info">
             <div className="song">
-              <span className="song_name">The Last Train To Milky Way</span>
-              <span className="singer_name">鲸鱼马戏团</span>
+              <span className="song_name">{currentSong.name}</span>
+              <span className="singer_name">{currentSong.ar[0].name}</span>
             </div>
             <div className="progress">
               <Slider />

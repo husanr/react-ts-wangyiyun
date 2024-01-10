@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import homeReducer from './modules/home'
 import recommendReducer from '@/views/discover/c-views/recommend/store'
+import playerReducer from '@/views/player/store'
 
 const store = configureStore({
   reducer: {
     home: homeReducer,
-    recommend: recommendReducer
+    recommend: recommendReducer,
+    player: playerReducer
   }
 })
 

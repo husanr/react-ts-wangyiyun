@@ -74,8 +74,9 @@ export const BarInfo = styled.div`
       position: relative;
       top: 8px;
       left: 8px;
+      line-height: 28px;
 
-      .singer-name {
+      .singer_name {
         color: #a1a1a1;
         margin-left: 10px;
       }
