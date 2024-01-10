@@ -47,4 +47,23 @@ export const SettleSingerWrapper = styled.div`
       }
     }
   }
+
+  .apply_for {
+    margin-top: 14px;
+    a {
+      color: #333;
+      font-weight: 700;
+      text-align: center;
+      display: block;
+      height: 31px;
+      line-height: 31px;
+      border-radius: 4px;
+      background-color: #fafafa;
+      border: 1px solid #c3c3c3;
+      text-decoration: none;
+      &:hover {
+        background: #fefefe;
+      }
+    }
+  }
 `
