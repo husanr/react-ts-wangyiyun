@@ -15,9 +15,10 @@ interface IProps {
 const AppPlayerBar: FC<IProps> = () => {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState<number>(0)
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
+  const [isSliding, setIsSliding] = useState(false)
 
   const { currentSong } = useAppSelector(
     (state) => ({
@@ -45,8 +46,9 @@ const AppPlayerBar: FC<IProps> = () => {
     setDuration(currentSong.dt)
   }, [currentSong])
 
+  // 音乐播放
   const handlePlayBtnClick = () => {
-    console.log(isPlaying ? '播放' : '暂停')
+    // console.log(isPlaying ? '播放' : '暂停')
     // 播放和暂停
     isPlaying
       ? audioRef.current?.pause()
@@ -56,16 +58,37 @@ const AppPlayerBar: FC<IProps> = () => {
   }
 
   const handleTimeUpdate = () => {
-    console.log('update')
+    // console.log('update')
     const currentTime = audioRef.current!.currentTime * 1000
-    const progress = (currentTime / duration) * 100
-    setProgress(progress)
-    setCurrentTime(currentTime)
+    if (!isSliding) {
+      const progress = (currentTime / duration) * 100
+      setProgress(progress)
+      setCurrentTime(currentTime)
+    }
   }
 
   const handleTimeEnded = () => {
     console.log('ended')
   }
+
+  // 操作进度条
+  const handleSliderChanging = (value: number) => {
+    // console.log(value)
+    setIsSliding(true)
+    setProgress(value)
+    const current = (value / 100) * duration
+    setCurrentTime(current)
+  }
+  const handleSliderChanged = (value: number) => {
+    // console.log(value)
+    const current = (value / 100) * duration
+    // 设置进度
+    setCurrentTime(current)
+    setProgress(value)
+    setIsSliding(false)
+    audioRef.current!.currentTime = current / 1000
+  }
+
   return (
     <PlayerBarWrapper className="sprite_playbar">
       <div className="content wrap-v2">
@@ -92,9 +115,11 @@ const AppPlayerBar: FC<IProps> = () => {
             </div>
             <div className="progress">
               <Slider
-                value={progress}
                 step={0.5}
+                value={progress}
                 tooltip={{ formatter: null }}
+                onChange={handleSliderChanging}
+                onChangeComplete={handleSliderChanged}
               />
               <div className="time">
                 <span className="current">{formatPlayTime(currentTime)}</span>
