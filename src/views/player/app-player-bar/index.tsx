@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { Slider } from 'antd'
 import { useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
-import { getImgSize } from '@/utils/format'
+import { formatPlayTime, getImgSize } from '@/utils/format'
 import { getPlayUrl } from '@/utils/player'
 
 interface IProps {
@@ -17,6 +17,7 @@ const AppPlayerBar: FC<IProps> = () => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [duration, setDuration] = useState(0)
+  const [currentTime, setCurrentTime] = useState(0)
 
   const { currentSong } = useAppSelector(
     (state) => ({
@@ -59,6 +60,7 @@ const AppPlayerBar: FC<IProps> = () => {
     const currentTime = audioRef.current!.currentTime * 1000
     const progress = (currentTime / duration) * 100
     setProgress(progress)
+    setCurrentTime(currentTime)
   }
 
   const handleTimeEnded = () => {
@@ -95,9 +97,9 @@ const AppPlayerBar: FC<IProps> = () => {
                 tooltip={{ formatter: null }}
               />
               <div className="time">
-                <span className="current">00:11</span>
+                <span className="current">{formatPlayTime(currentTime)}</span>
                 <span className="divider">/</span>
-                <span className="duration">07:14</span>
+                <span className="duration">{formatPlayTime(duration)}</span>
               </div>
             </div>
           </div>
