@@ -11,7 +11,7 @@ import { fetchCurrentSongDetailThunk } from './views/player/store'
 function App() {
   const dispatch = useAppDispatch()
   useEffect(() => {
-    dispatch(fetchCurrentSongDetailThunk(1889212359))
+    dispatch(fetchCurrentSongDetailThunk(2109685246))
   }, [])
   return (
     <div className="App">
