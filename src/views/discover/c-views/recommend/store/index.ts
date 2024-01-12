@@ -50,7 +50,7 @@ export const fetchSingersThunk = createAsyncThunk(
   'singers',
   async (args: any, { dispatch }) => {
     const res = await getSingers({ limit: args.limit })
-    console.log(res)
+    // console.log(res)
     dispatch(getSettleSingersAction(res.artists))
   }
 )
