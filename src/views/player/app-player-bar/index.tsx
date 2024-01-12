@@ -3,10 +3,11 @@ import type { FC, ReactNode } from 'react'
 import { BarControl, BarFavor, BarInfo, PlayerBarWrapper } from './style'
 import { Link } from 'react-router-dom'
 import { Slider } from 'antd'
-import { useAppSelector } from '@/store'
+import { useAppDispatch, useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
 import { formatPlayTime, getImgSize } from '@/utils/format'
 import { getPlayUrl } from '@/utils/player'
+import { changeLyricIndexAction } from '../store'
 
 interface IProps {
   children?: ReactNode
@@ -20,12 +21,15 @@ const AppPlayerBar: FC<IProps> = () => {
   const [currentTime, setCurrentTime] = useState(0)
   const [isSliding, setIsSliding] = useState(false)
 
-  const { currentSong } = useAppSelector(
+  const { currentSong, lyrics, lyricIndex } = useAppSelector(
     (state) => ({
-      currentSong: state.player.currentSong
+      currentSong: state.player.currentSong,
+      lyrics: state.player.lyrics,
+      lyricIndex: state.player.lyricIndex
     }),
     shallowEqual
   )
+  const dispatch = useAppDispatch()
 
   // 副作用
   useEffect(() => {
@@ -65,6 +69,21 @@ const AppPlayerBar: FC<IProps> = () => {
       setProgress(progress)
       setCurrentTime(currentTime)
     }
+
+    // 匹配歌词
+    let index = lyrics.length - 1
+    for (let i = 0; i < lyrics.length; i++) {
+      const lyric = lyrics[i]
+      if (lyric.time > currentTime) {
+        index = i - 1
+        break
+      }
+    }
+
+    // 避免进度更新时重复匹配歌词
+    if (lyricIndex === index || index === -1) return
+    dispatch(changeLyricIndexAction(index))
+    console.log(lyrics[index]?.text)
   }
 
   const handleTimeEnded = () => {
