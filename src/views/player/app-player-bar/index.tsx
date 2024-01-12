@@ -30,7 +30,7 @@ const AppPlayerBar: FC<IProps> = () => {
   // 副作用
   useEffect(() => {
     // 播放音乐
-    audioRef.current!.src = getPlayUrl(2101373186)
+    audioRef.current!.src = getPlayUrl(currentSong.id)
     // audioRef.current
     //   ?.play()
     //   .then(() => {

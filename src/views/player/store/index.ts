@@ -1,4 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { getCurrentSongDetail, getSongLyric } from '../service'
+
+export const fetchCurrentSongDetailThunk = createAsyncThunk(
+  'currentSongDetail',
+  (id: number, { dispatch }) => {
+    getCurrentSongDetail(id).then((res: any) => {
+      if (!res.songs.length) return
+
+      const song = res.songs[0]
+      console.log(song)
+      dispatch(changeCurrentSongAction(song))
+    })
+
+    getSongLyric(id).then((res) => {
+      console.log(res)
+    })
+  }
+)
 
 interface IPlayerState {
   currentSong: any
@@ -66,7 +84,13 @@ const initialState: IPlayerState = {
 const playerSlice = createSlice({
   name: 'player',
   initialState,
-  reducers: {}
+  reducers: {
+    changeCurrentSongAction(state, { payload }) {
+      state.currentSong = payload
+    }
+  }
 })
+
+export const { changeCurrentSongAction } = playerSlice.actions
 
 export default playerSlice.reducer
