@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import { BarControl, BarFavor, BarInfo, PlayerBarWrapper } from './style'
 import { Link } from 'react-router-dom'
-import { Slider } from 'antd'
+import { Slider, message } from 'antd'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
 import { formatPlayTime, getImgSize } from '@/utils/format'
@@ -83,7 +83,12 @@ const AppPlayerBar: FC<IProps> = () => {
     // 避免进度更新时重复匹配歌词
     if (lyricIndex === index || index === -1) return
     dispatch(changeLyricIndexAction(index))
-    console.log(lyrics[index]?.text)
+
+    message.open({
+      content: lyrics[index].text,
+      key: 'lyric',
+      duration: 0
+    })
   }
 
   const handleTimeEnded = () => {
