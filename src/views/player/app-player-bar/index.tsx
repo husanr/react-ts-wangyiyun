@@ -128,14 +128,14 @@ const AppPlayerBar: FC<IProps> = () => {
           <Link to="/player">
             <img
               className="image"
-              src={getImgSize(currentSong.al.picUrl, 34)}
+              src={getImgSize(currentSong.al?.picUrl, 34)}
               alt=""
             />
           </Link>
           <div className="info">
             <div className="song">
               <span className="song_name">{currentSong.name}</span>
-              <span className="singer_name">{currentSong.ar[0].name}</span>
+              <span className="singer_name">{currentSong.ar?.[0].name}</span>
             </div>
             <div className="progress">
               <Slider
