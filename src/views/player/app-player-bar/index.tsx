@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
 import { formatPlayTime, getImgSize } from '@/utils/format'
 import { getPlayUrl } from '@/utils/player'
-import { changeLyricIndexAction } from '../store'
+import { changeLyricIndexAction, changePlayModeAction } from '../store'
 
 interface IProps {
   children?: ReactNode
@@ -21,11 +21,12 @@ const AppPlayerBar: FC<IProps> = () => {
   const [currentTime, setCurrentTime] = useState(0)
   const [isSliding, setIsSliding] = useState(false)
 
-  const { currentSong, lyrics, lyricIndex } = useAppSelector(
+  const { currentSong, lyrics, lyricIndex, playMode } = useAppSelector(
     (state) => ({
       currentSong: state.player.currentSong,
       lyrics: state.player.lyrics,
-      lyricIndex: state.player.lyricIndex
+      lyricIndex: state.player.lyricIndex,
+      playMode: state.player.playMode
     }),
     shallowEqual
   )
@@ -113,6 +114,13 @@ const AppPlayerBar: FC<IProps> = () => {
     audioRef.current!.currentTime = current / 1000
   }
 
+  // 点击事件
+  const handlePlayModeClick = () => {
+    let mode = playMode + 1
+    if (mode > 2) mode = 0
+    dispatch(changePlayModeAction(mode))
+  }
+
   return (
     <PlayerBarWrapper className="sprite_playbar">
       <div className="content wrap-v2">
@@ -153,7 +161,7 @@ const AppPlayerBar: FC<IProps> = () => {
             </div>
           </div>
         </BarInfo>
-        <BarFavor>
+        <BarFavor playMode={playMode}>
           <div className="left">
             <button className="btn pip"></button>
             <button className="btn sprite_playbar favor"></button>
@@ -161,7 +169,10 @@ const AppPlayerBar: FC<IProps> = () => {
           </div>
           <div className="right sprite_playbar">
             <button className="btn sprite_playbar volume"></button>
-            <button className="btn sprite_playbar loop"></button>
+            <button
+              className="btn sprite_playbar loop"
+              onClick={handlePlayModeClick}
+            ></button>
             <button className="btn sprite_playbar playlist"></button>
           </div>
         </BarFavor>

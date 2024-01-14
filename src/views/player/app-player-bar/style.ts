@@ -126,8 +126,10 @@ export const BarInfo = styled.div`
     }
   }
 `
-
-export const BarFavor = styled.div`
+interface IFavorState {
+  playMode: number
+}
+export const BarFavor = styled.div<IFavorState>`
   display: flex;
   align-items: center;
   position: relative;
@@ -167,7 +169,16 @@ export const BarFavor = styled.div`
     }
 
     .loop {
-      background-position: -66px -248px;
+      background-position: ${(props) => {
+        switch (props.playMode) {
+          case 1:
+            return '-66px -248px'
+          case 2:
+            return '-66px -344px'
+          default:
+            return '-3px -344px'
+        }
+      }};
     }
 
     .playlist {
