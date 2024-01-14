@@ -169,6 +169,7 @@ export const BarFavor = styled.div<IFavorState>`
     }
 
     .loop {
+      cursor: pointer;
       background-position: ${(props) => {
         switch (props.playMode) {
           case 1:

@@ -7,7 +7,11 @@ import { useAppDispatch, useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
 import { formatPlayTime, getImgSize } from '@/utils/format'
 import { getPlayUrl } from '@/utils/player'
-import { changeLyricIndexAction, changePlayModeAction } from '../store'
+import {
+  changeLyricIndexAction,
+  changeMusicThunk,
+  changePlayModeAction
+} from '../store'
 
 interface IProps {
   children?: ReactNode
@@ -36,16 +40,16 @@ const AppPlayerBar: FC<IProps> = () => {
   useEffect(() => {
     // 播放音乐
     audioRef.current!.src = getPlayUrl(currentSong.id)
-    // audioRef.current
-    //   ?.play()
-    //   .then(() => {
-    //     console.log('播放成功')
-    //     setIsPlaying(true)
-    //   })
-    //   .catch((error) => {
-    //     setIsPlaying(false)
-    //     console.log('播放失败', error)
-    //   })
+    audioRef.current
+      ?.play()
+      .then(() => {
+        console.log('播放成功')
+        setIsPlaying(true)
+      })
+      .catch((error) => {
+        setIsPlaying(false)
+        console.log('播放失败', error)
+      })
 
     // 设置总时长
     setDuration(currentSong.dt)
@@ -60,6 +64,10 @@ const AppPlayerBar: FC<IProps> = () => {
       : audioRef.current?.play().catch(() => setIsPlaying(false))
 
     setIsPlaying(!isPlaying)
+  }
+  // 切歌
+  const handleChangeMusic = (isNext = true) => {
+    dispatch(changeMusicThunk(isNext))
   }
 
   const handleTimeUpdate = () => {
@@ -125,12 +133,18 @@ const AppPlayerBar: FC<IProps> = () => {
     <PlayerBarWrapper className="sprite_playbar">
       <div className="content wrap-v2">
         <BarControl isPlaying={isPlaying}>
-          <button className="btn sprite_playbar prev"></button>
+          <button
+            className="btn sprite_playbar prev"
+            onClick={() => handleChangeMusic(false)}
+          ></button>
           <button
             className="btn sprite_playbar play"
             onClick={handlePlayBtnClick}
           ></button>
-          <button className="btn sprite_playbar next"></button>
+          <button
+            className="btn sprite_playbar next"
+            onClick={() => handleChangeMusic()}
+          ></button>
         </BarControl>
         <BarInfo>
           <Link to="/player">

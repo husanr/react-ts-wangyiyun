@@ -3,10 +3,14 @@ import { getCurrentSongDetail, getSongLyric } from '../service'
 import { ILyric, parseLyric } from '@/utils/player'
 import type { RootState } from '@/store'
 
+interface IThunkState {
+  state: RootState
+}
+
 export const fetchCurrentSongDetailThunk = createAsyncThunk<
   void,
   number,
-  { state: RootState }
+  IThunkState
 >('currentSongDetail', (id, { dispatch, getState }) => {
   const playList = getState().player.playList
   const findIndex = playList.findIndex((item) => item.id === id)
@@ -35,6 +39,28 @@ export const fetchCurrentSongDetailThunk = createAsyncThunk<
     dispatch(changeLyricsAction(lyric))
   })
 })
+
+// 切换歌曲
+export const changeMusicThunk = createAsyncThunk<void, boolean, IThunkState>(
+  'changMusic',
+  (isNext, { dispatch, getState }) => {
+    const { playList, playListIndex, playMode } = getState().player
+    let newIndex = -1
+    if (playMode === 1) {
+      // 随机播放
+      newIndex = Math.floor(Math.random() * playList.length)
+    } else {
+      // 单曲或循环
+      newIndex = isNext ? playListIndex + 1 : playListIndex - 1
+      if (newIndex > playList.length - 1) newIndex = 0
+      if (newIndex < 0) newIndex = playList.length - 1
+    }
+
+    const song = playList[newIndex]
+    dispatch(changeCurrentSongAction(song))
+    dispatch(changePlayListIndexAction(newIndex))
+  }
+)
 
 interface IPlayerState {
   currentSong: any
