@@ -32,7 +32,7 @@ export const fetchCurrentSongDetailThunk = createAsyncThunk<
     dispatch(changeCurrentSongAction(song))
     dispatch(changePlayListIndexAction(findIndex))
   }
-
+  // 获取歌词
   getSongLyric(id).then((res) => {
     // console.log(res)
     const lyric = parseLyric(res.lrc.lyric)
@@ -59,6 +59,12 @@ export const changeMusicThunk = createAsyncThunk<void, boolean, IThunkState>(
     const song = playList[newIndex]
     dispatch(changeCurrentSongAction(song))
     dispatch(changePlayListIndexAction(newIndex))
+    // 获取歌词
+    getSongLyric(song.id).then((res) => {
+      // console.log(res)
+      const lyric = parseLyric(res.lrc.lyric)
+      dispatch(changeLyricsAction(lyric))
+    })
   }
 )
 

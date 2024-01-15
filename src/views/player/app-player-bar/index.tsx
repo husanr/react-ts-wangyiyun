@@ -102,6 +102,13 @@ const AppPlayerBar: FC<IProps> = () => {
 
   const handleTimeEnded = () => {
     console.log('ended')
+    if (playMode === 2) {
+      // 单曲循环
+      audioRef.current!.currentTime = 0
+      audioRef.current?.play()
+    } else {
+      handleChangeMusic(true)
+    }
   }
 
   // 操作进度条
