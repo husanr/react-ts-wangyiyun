@@ -60,7 +60,7 @@ const TopBanner: FC<IProps> = () => {
           >
             {banners.map((item) => {
               return (
-                <div key={item.encodeId} className="banner-item">
+                <div key={item.imageUrl} className="banner-item">
                   <img
                     className="image"
                     src={item.imageUrl}
@@ -73,7 +73,7 @@ const TopBanner: FC<IProps> = () => {
           <ul className="dots">
             {banners.map((item, index) => {
               return (
-                <li key={item.encodeId}>
+                <li key={item.imageUrl}>
                   <span
                     className={`item ${currentIndex === index ? 'active' : ''}`}
                   ></span>
