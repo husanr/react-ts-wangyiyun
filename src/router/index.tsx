@@ -22,7 +22,7 @@ const Download = React.lazy(() => import('@/views/download'))
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <Navigate to="/home" />
+    element: <Navigate to="/discover" />
   },
   {
     path: '/home',
