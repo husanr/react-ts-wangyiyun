@@ -83,80 +83,49 @@ const initialState: IPlayerState = {
   lyricIndex: -1,
   playList: [
     {
-      name: '温柔',
-      id: 386538,
+      name: '早发白帝城',
+      id: 2116828169,
       pst: 0,
       t: 0,
-      ar: [
-        {
-          id: 13193,
-          name: '五月天',
-          tns: [],
-          alias: []
-        }
-      ],
-      alia: [],
+      ar: [{ id: 5771, name: '许嵩', tns: [], alias: [] }],
+      alia: ['诗画中国  第2季  第1期'],
       pop: 100,
       st: 0,
-      rt: '600902000000534560',
-      fee: 1,
-      v: 79,
+      rt: '',
+      fee: 8,
+      v: 4,
       crbt: null,
       cf: '',
       al: {
-        id: 38285,
-        name: '我们是五月天',
+        id: 183093987,
+        name: '早发白帝城',
         picUrl:
-          'https://p2.music.126.net/XlMYABTsvXGxOn0h9F61VQ==/109951168750902183.jpg',
+          'https://p1.music.126.net/vxdfWmgkpbt3eSgp9CCu7g==/109951169254543633.jpg',
         tns: [],
-        pic_str: '109951168750902183',
-        pic: 109951168750902180
+        pic_str: '109951169254543633',
+        pic: 109951169254543630
       },
-      dt: 269800,
-      h: {
-        br: 320000,
-        fid: 0,
-        size: 10794885,
-        vd: -63966,
-        sr: 44100
-      },
-      m: {
-        br: 192000,
-        fid: 0,
-        size: 6476948,
-        vd: -61383,
-        sr: 44100
-      },
-      l: {
-        br: 128000,
-        fid: 0,
-        size: 4317980,
-        vd: -59695,
-        sr: 44100
-      },
-      sq: {
-        br: 1053726,
-        fid: 0,
-        size: 35536923,
-        vd: -64088,
-        sr: 44100
-      },
+      dt: 289008,
+      h: { br: 320000, fid: 0, size: 11561325, vd: -66352, sr: 48000 },
+      m: { br: 192000, fid: 0, size: 6936813, vd: -63778, sr: 48000 },
+      l: { br: 128000, fid: 0, size: 4624557, vd: -62280, sr: 48000 },
+      sq: null,
       hr: null,
       a: null,
-      cd: '1',
-      no: 2,
+      cd: '01',
+      no: 1,
       rtUrl: null,
       ftype: 0,
       rtUrls: [],
       djId: 0,
-      copyright: 0,
+      copyright: 1,
       s_id: 0,
-      mark: 8704,
-      originCoverType: 1,
+      mark: 8192,
+      originCoverType: 0,
       originSongSimpleData: null,
       tagPicList: null,
       resourceState: true,
-      version: 79,
+      version: 4,
       songJumpInfo: null,
       entertainmentTags: null,
       awardTags: null,
@@ -165,9 +134,9 @@ const initialState: IPlayerState = {
       rtype: 0,
       rurl: null,
       mst: 9,
-      cp: 684010,
-      mv: 10929721,
-      publishTime: 1049126400000
+      cp: 22036,
+      mv: 14689667,
+      publishTime: 1705161600000
     },
     {
       name: '逆光 (live)',
