@@ -8,7 +8,7 @@ const apiRequest = new APIRequest({
   timeout: TIME_OUT,
   interceptors: {
     requestInterceptor: (config) => {
-      console.log('请求成功的拦截')
+      // console.log('请求成功的拦截', config)
       // token拦截
       // const token = localCache.getCache('token')
       // if (token) {
@@ -16,18 +16,22 @@ const apiRequest = new APIRequest({
       //     config.headers.Authorization = `Bearer ${token}`
       //   }
       // }
+      if (process.env.NODE_ENV === 'production') {
+        config.url +=
+          (config.url.indexOf('?') > 0 ? '&' : '?') + 'realIP=116.25.146.177'
+      }
       return config
     },
     requestInterceptorCatch: (err) => {
-      console.log('请求失败的拦截')
+      console.log('请求失败的拦截', err)
       return err
     },
     responseInterceptor: (res) => {
-      console.log('响应成功的拦截')
+      // console.log('响应成功的拦截')
       return res
     },
     responseInterceptorCatch: (err) => {
-      console.log('响应失败的拦截')
+      console.log('响应失败的拦截', err)
       return err
     }
   }
